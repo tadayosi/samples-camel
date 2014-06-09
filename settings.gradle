@@ -1,0 +1,2 @@
+include "basic"
+rootProject.children.each { it.name = rootProject.name + "-" + it.name }
