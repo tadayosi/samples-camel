@@ -10,7 +10,7 @@ subprojects{
     targetCompatibility = 1.7
 
     ext {
-        scalaVersion = "2.10.3"
+        scalaVersion = "2.10.4"
         camelVersion = "2.10.0"
     }
 
