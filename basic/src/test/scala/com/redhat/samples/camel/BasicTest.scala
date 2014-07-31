@@ -9,7 +9,7 @@ import org.hamcrest.Matchers._
 import org.junit.Assert._
 import org.junit.Test
 
-class SampleTest extends CamelTestSupport {
+class BasicTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure {
