@@ -21,7 +21,7 @@ class OnExceptionTest extends CamelTestSupport {
         .log("=" * 80)
         .transform().simple("ERROR: ${exception.message}")
 
-      from("direct:in")
+      from("direct:in").routeId(classOf[OnExceptionTest].getName)
         .choice()
           .when(body().contains("Error"))
             .throwException(new Exception("xxxxx"))
