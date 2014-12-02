@@ -25,6 +25,7 @@ subprojects{
         // Camel
         compile "org.apache.camel:camel-core:${camelVersion}"
         compile "org.apache.camel:camel-ftp:${camelVersion}"
+        compile "org.apache.camel:camel-quartz:${camelVersion}"
 
         // utilities
         compile "com.google.guava:guava:15.0"
