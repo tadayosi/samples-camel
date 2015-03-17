@@ -1,18 +1,17 @@
-package com.redhat.samples.camel.ftp
+package com.redhat.samples.camel
 
 import java.io.File
+import scala.io.Source
 import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
-import org.apache.camel.component.mock.MockEndpoint
 import org.hamcrest.Matchers._
-import org.junit.Assert._
-import org.junit.Test
-import org.junit.BeforeClass
-import org.junit.AfterClass
-import org.junit.Before
 import org.junit.After
-import scala.io.Source
+import org.junit.Assert._
+import org.junit.Before
+import org.junit.Test
+
+import com.redhat.samples.camel.helpers.FTPServer
 
 class FtpTest extends CamelTestSupport {
 

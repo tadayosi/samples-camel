@@ -1,4 +1,4 @@
-package com.redhat.samples.camel.ftp
+package com.redhat.samples.camel.helpers
 
 import java.io.File
 
