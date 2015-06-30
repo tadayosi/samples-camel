@@ -32,7 +32,7 @@ class RedeliveryTest extends CamelTestSupport {
   }
 
   @Test
-  def hello {
+  def hello: Unit = {
     val reply = template.requestBody("direct:in", "Test")
     assertThat(reply.toString, is("Hello, Test!"))
   }

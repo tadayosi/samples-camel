@@ -10,8 +10,9 @@ subprojects{
     targetCompatibility = 1.7
 
     ext {
-        scalaVersion = "2.10.4"
-        camelVersion = "2.10.0"
+        scalaVersion = "2.11.6"
+        //camelVersion = "2.10.0" // Fuse 6.0
+        camelVersion = "2.15.1" // Fuse 6.2
     }
 
     repositories {
@@ -21,9 +22,11 @@ subprojects{
 
     dependencies {
         compile "org.scala-lang:scala-library:${scalaVersion}"
+        compile "org.scala-lang.modules:scala-xml_2.11:1.0.4"
 
         // Camel
         compile "org.apache.camel:camel-core:${camelVersion}"
+        compile "org.apache.camel:camel-spring:${camelVersion}"
         compile "org.apache.camel:camel-ftp:${camelVersion}"
         compile "org.apache.camel:camel-quartz:${camelVersion}"
 
@@ -35,6 +38,7 @@ subprojects{
 
         // test
         testCompile "org.apache.camel:camel-test:${camelVersion}"
+        testCompile "org.apache.camel:camel-test-spring:${camelVersion}"
         testCompile "junit:junit:4.11"
         testCompile "org.hamcrest:hamcrest-library:1.3"
     }

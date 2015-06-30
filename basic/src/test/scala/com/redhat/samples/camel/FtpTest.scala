@@ -27,22 +27,22 @@ class FtpTest extends CamelTestSupport {
   private var ftpServer: Option[FTPServer] = None
 
   @Before
-  def startFtpServer {
+  def startFtpServer: Unit = {
     ftpServer = Some(new FTPServer(2121).start)
   }
 
   @Before
-  def deleteFile {
+  def deleteFile: Unit = {
     new File("build/ftp/out/out.txt").delete
   }
 
   @After
-  def stopFtpServer {
+  def stopFtpServer: Unit = {
     ftpServer.foreach(_.stop)
   }
 
   @Test
-  def hello {
+  def hello: Unit = {
     template.sendBody("direct:in", "Hello!")
     Thread.sleep(1000)
 

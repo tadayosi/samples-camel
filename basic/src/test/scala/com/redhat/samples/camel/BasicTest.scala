@@ -18,7 +18,7 @@ class BasicTest extends CamelTestSupport {
   }
 
   @Test
-  def hello {
+  def hello: Unit = {
     val out = getMockEndpoint("mock:out")
     out.expectedMessageCount(1)
     out.expectedBodiesReceived("Hello!")

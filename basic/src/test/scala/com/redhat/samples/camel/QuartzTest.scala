@@ -21,7 +21,7 @@ class QuartzTest extends CamelTestSupport {
   }
 
   @Test
-  def hello {
+  def hello: Unit = {
     val out = getMockEndpoint("mock:out")
     out.expectedMessageCount(10)
 

@@ -23,12 +23,12 @@ class FileTest extends CamelTestSupport {
   }
 
   @Before
-  def deleteOutFile {
+  def deleteOutFile: Unit = {
     new File("target/out/hello.txt").delete
   }
 
   @Test
-  def hello {
+  def hello: Unit = {
     Files.write("Hello!".getBytes, new File("target/in/hello.txt"))
 
     Thread.sleep(1000)

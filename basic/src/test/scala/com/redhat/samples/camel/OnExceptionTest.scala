@@ -32,13 +32,13 @@ class OnExceptionTest extends CamelTestSupport {
   }
 
   @Test
-  def ok {
+  def ok: Unit = {
     val reply = template.requestBody("direct:in", "Test")
     assertThat(reply.toString, is("Hello, Test!"))
   }
 
   @Test
-  def error {
+  def error: Unit = {
     val reply = template.requestBody("direct:in", "Error")
     assertThat(reply.toString, is("ERROR: xxxxx"))
   }
