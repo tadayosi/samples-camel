@@ -16,24 +16,24 @@ class FileTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure {
-      from("file:target/in?move=../../${file:parent}_done/${file:name}")
+      from("file:/tmp/sample/in?move=../../../${file:parent}_done/${file:name}")
         .transform().simple("<<< ${body} >>>")
-        .to("file:target/out")
+        .to("file:/tmp/sample/out")
     }
   }
 
   @Before
   def deleteOutFile: Unit = {
-    new File("target/out/hello.txt").delete
+    new File("/tmp/sample/out/hello.txt").delete
   }
 
   @Test
   def hello: Unit = {
-    Files.write("Hello!".getBytes, new File("target/in/hello.txt"))
+    Files.write("Hello!".getBytes, new File("/tmp/sample/in/hello.txt"))
 
-    Thread.sleep(1000)
+    Thread.sleep(3000)
 
-    val outFile = new File("target/out/hello.txt")
+    val outFile = new File("/tmp/sample/out/hello.txt")
     assertThat(outFile.exists, is(true))
     assertThat(Source.fromFile(outFile).getLines.mkString, is("<<< Hello! >>>"))
   }
