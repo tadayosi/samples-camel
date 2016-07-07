@@ -1,17 +1,16 @@
 package com.redhat.samples.camel
 
 import java.io.File
-import scala.io.Source
+
+import com.redhat.samples.camel.helpers.FTPServer
 import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
 import org.hamcrest.Matchers._
-import org.junit.After
 import org.junit.Assert._
-import org.junit.Before
-import org.junit.Test
+import org.junit.{After, Before, Test}
 
-import com.redhat.samples.camel.helpers.FTPServer
+import scala.io.Source
 
 class FtpTest extends CamelTestSupport {
 

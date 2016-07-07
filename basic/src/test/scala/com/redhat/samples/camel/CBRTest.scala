@@ -1,12 +1,9 @@
 package com.redhat.samples.camel
 
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.test.junit4.CamelTestSupport
-import org.apache.camel.component.mock.MockEndpoint
-import org.hamcrest.Matchers._
-import org.junit.Assert._
-import org.junit.Test
 import org.apache.camel.builder.xml.Namespaces
+import org.apache.camel.test.junit4.CamelTestSupport
+import org.junit.Test
 
 class CBRTest extends CamelTestSupport {
 
@@ -14,7 +11,7 @@ class CBRTest extends CamelTestSupport {
     override def configure {
       val ns = new Namespaces("soap", "http://schemas.xmlsoap.org/soap/envelope/")
         .add("ns", "urn:samples-camel:basic:1.0")
-      // format: OFF
+      // @formatter:off
       from("direct:in")
         .choice
           .when.xpath("/soap:Envelope/soap:Body/ns:aaa", ns)
@@ -23,7 +20,7 @@ class CBRTest extends CamelTestSupport {
             .to("mock:b")
           .otherwise
             .to("mock:c")
-      // format: ON
+      // @formatter:on
     }
   }
 

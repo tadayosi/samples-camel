@@ -12,6 +12,7 @@
 
   <modules>
     <module>basic</module>
+    <module>spring</module>
   </modules>
 
   <properties>
@@ -38,11 +39,6 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-      <version>${version.camel}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-spring</artifactId>
       <version>${version.camel}</version>
     </dependency>
 
@@ -95,7 +91,7 @@
     <!-- testing -->
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test-spring</artifactId>
+      <artifactId>camel-test</artifactId>
       <version>${version.camel}</version>
       <scope>test</scope>
     </dependency>
@@ -115,6 +111,17 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring</artifactId>
+        <version>${version.camel}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test-spring</artifactId>
+        <version>${version.camel}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

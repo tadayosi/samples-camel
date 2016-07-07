@@ -1,9 +1,8 @@
 package com.redhat.samples.camel
 
-import org.apache.camel.Exchange
-import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.spring.CamelSpringTestSupport
+import org.apache.camel.{Exchange, Processor}
 import org.junit.Test
 import org.springframework.context.support.ClassPathXmlApplicationContext
 
