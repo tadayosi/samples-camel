@@ -13,7 +13,7 @@ class RedeliveryTest extends CamelTestSupport {
   val logger = LoggerFactory.getLogger(classOf[RedeliveryTest])
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       onException(classOf[Exception])
         .maximumRedeliveries(2).redeliveryDelay(1000)
 

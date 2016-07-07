@@ -4,8 +4,11 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-  <camelContext id="spring-properties" xmlns="http://camel.apache.org/schema/spring">
-    <propertyPlaceholder id="properties" location="classpath:sample.properties" />
+  <camelContext id="spring-basic" xmlns="http://camel.apache.org/schema/spring">
+    <route>
+      <from uri="direct:in" />
+      <to uri="direct:out" />
+    </route>
   </camelContext>
 
 </beans>

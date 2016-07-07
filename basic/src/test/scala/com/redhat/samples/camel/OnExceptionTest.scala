@@ -9,7 +9,7 @@ import org.junit.Test
 class OnExceptionTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       // @formatter:off
       onException(classOf[Exception])
         .handled(true)

@@ -7,7 +7,7 @@ import org.junit.Test
 class QuartzTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       from("quartz:in?trigger.repeatInterval=100&trigger.repeatCount=9")
         .setBody(simple("Hello!"))
         .log("${body}")

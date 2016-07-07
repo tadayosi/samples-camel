@@ -1,4 +1,4 @@
-package com.redhat.samples.camel
+package com.redhat.samples.camel.spring
 
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.spring.CamelSpringTestSupport

@@ -15,7 +15,7 @@ import scala.io.Source
 class FtpTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       from("direct:in")
         .transform().simple("<<< ${body} >>>")
         .setHeader(Exchange.FILE_NAME, constant("out.txt"))

@@ -1,14 +1,18 @@
-package com.redhat.samples.camel
+package com.redhat.samples.camel.spring
 
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.test.junit4.CamelTestSupport
+import org.apache.camel.test.spring.CamelSpringTestSupport
 import org.junit.Test
+import org.springframework.context.support.ClassPathXmlApplicationContext
 
-class BasicTest extends CamelTestSupport {
+class BasicTest extends CamelSpringTestSupport {
+
+  override def createApplicationContext =
+    new ClassPathXmlApplicationContext("spring/basic-camel-context.xml")
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {
-      from("direct:in").to("mock:out")
+      from("direct:out").to("mock:out")
     }
   }
 

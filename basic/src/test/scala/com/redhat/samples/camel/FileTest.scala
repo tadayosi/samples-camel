@@ -14,7 +14,7 @@ import scala.io.Source
 class FileTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       from("file:/tmp/sample/in?move=../../../${file:parent}_done/${file:name}")
         .transform().simple("<<< ${body} >>>")
         .to("file:/tmp/sample/out")

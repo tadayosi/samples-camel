@@ -8,7 +8,7 @@ import org.junit.Test
 class CBRTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    override def configure {
+    override def configure: Unit = {
       val ns = new Namespaces("soap", "http://schemas.xmlsoap.org/soap/envelope/")
         .add("ns", "urn:samples-camel:basic:1.0")
       // @formatter:off
