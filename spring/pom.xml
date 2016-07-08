@@ -10,9 +10,14 @@
   </parent>
 
   <artifactId>samples-camel-spring</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
 
   <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring</artifactId>
@@ -24,5 +29,26 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Export-Package>
+              ${project.groupId}.spring.*;version=${project.version}
+            </Export-Package>
+            <Import-Package>
+              org.springframework*;version="[4.2,5)",
+              *
+            </Import-Package>
+            <DynamicImport-Package>*</DynamicImport-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

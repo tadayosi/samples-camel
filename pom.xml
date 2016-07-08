@@ -18,7 +18,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <version.camel>2.17.2</version.camel>
+    <!--<version.camel>2.16.3</version.camel>-->
+    <version.spring>4.2.5.RELEASE</version.spring>
     <version.scala>2.11.7</version.scala>
   </properties>
 
@@ -39,6 +43,11 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
+      <version>${version.camel}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core-osgi</artifactId>
       <version>${version.camel}</version>
     </dependency>
 
@@ -113,8 +122,26 @@
     <dependencies>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-blueprint</artifactId>
+        <version>${version.camel}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-spring</artifactId>
         <version>${version.camel}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${version.spring}</version>
+      </dependency>
+
+      <!-- test -->
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test-blueprint</artifactId>
+        <version>${version.camel}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -135,8 +162,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
       <plugin>
@@ -186,7 +213,7 @@
       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-maven-plugin</artifactId>
-        <version>2.12.0.redhat-610379</version>
+        <version>${version.camel}</version>
       </plugin>
       <!-- deploy on EAP -->
       <plugin>
@@ -197,9 +224,20 @@
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
-        <version>1.1.0.Alpha2</version>
+        <version>1.1.0.Alpha10</version>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <!-- package -->
+      <plugins>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>3.0.1</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <repositories>

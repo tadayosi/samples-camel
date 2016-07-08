@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext
 class PropertiesTest extends CamelSpringTestSupport {
 
   override def createApplicationContext =
-    new ClassPathXmlApplicationContext("spring/properties-camel-context.xml")
+    new ClassPathXmlApplicationContext("META-INF/spring/properties-camel-context.xml")
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure {

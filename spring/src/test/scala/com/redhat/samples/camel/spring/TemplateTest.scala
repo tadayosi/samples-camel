@@ -5,10 +5,10 @@ import org.apache.camel.test.spring.CamelSpringTestSupport
 import org.junit.Test
 import org.springframework.context.support.ClassPathXmlApplicationContext
 
-class BasicTest extends CamelSpringTestSupport {
+class TemplateTest extends CamelSpringTestSupport {
 
   override def createApplicationContext =
-    new ClassPathXmlApplicationContext("META-INF/spring/basic-camel-context.xml")
+    new ClassPathXmlApplicationContext("META-INF/spring/template-camel-context.xml")
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {
