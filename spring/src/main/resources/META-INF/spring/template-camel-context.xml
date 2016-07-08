@@ -4,7 +4,7 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-  <camelContext id="spring-basic" xmlns="http://camel.apache.org/schema/spring">
+  <camelContext id="spring-template" xmlns="http://camel.apache.org/schema/spring">
     <template id="sampleTemplate" defaultEndpoint="direct:out" />
     <route>
       <from uri="direct:in" />
