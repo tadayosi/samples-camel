@@ -18,6 +18,7 @@ class CxfrsTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {
+      getContext.setTracing(true)
       getContext.getRegistry(classOf[JndiRegistry])
         .bind("rsServer", rsServer)
 
