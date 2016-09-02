@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 
 class RedeliveryTest extends CamelTestSupport {
 
-  val logger = LoggerFactory.getLogger(classOf[RedeliveryTest])
+  private val logger = LoggerFactory.getLogger(classOf[RedeliveryTest])
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {

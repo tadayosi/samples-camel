@@ -8,8 +8,11 @@ import org.apache.camel.test.junit4.CamelTestSupport
 import org.apache.cxf.feature.LoggingFeature
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean
 import org.junit.Test
+import org.slf4j.LoggerFactory
 
 class CxfrsTest extends CamelTestSupport {
+
+  private val logger = LoggerFactory.getLogger(classOf[CxfrsTest])
 
   val address: String = "http://localhost:9000/"
 
@@ -21,6 +24,7 @@ class CxfrsTest extends CamelTestSupport {
       //from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
       from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer&synchronous=true")
         .log("body: '${body}'")
+        .transform(simple("Hello, ${body}!"))
         .to("mock:out")
     }
   }
@@ -38,13 +42,12 @@ class CxfrsTest extends CamelTestSupport {
   def hello: Unit = {
     val out = getMockEndpoint("mock:out")
     out.expectedMessageCount(1)
-    //out.expectedBodiesReceived("Hello, Kayoko Ann Patterson!")
-    out.expectedBodiesReceived("Kayoko Ann Patterson")
+    out.expectedBodiesReceived("Hello, Kayoko Ann Patterson!")
 
     try {
       template.sendBody("http://localhost:9000/greeting/hello/Kayoko%20Ann%20Patterson", null)
     } catch {
-      case e: Throwable => println(e.getCause)
+      case e: Throwable => logger.error(e.getMessage)
     }
     out.assertIsSatisfied
   }
@@ -55,5 +58,5 @@ class CxfrsTest extends CamelTestSupport {
 trait GreetingResource {
   @GET
   @Path("/hello/{name}")
-  def hello(@PathParam("name") name: String): String //= s"Hello, $name!"
+  def hello(@PathParam("name") name: String): String
 }
