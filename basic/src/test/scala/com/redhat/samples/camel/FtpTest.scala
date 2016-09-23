@@ -32,7 +32,7 @@ class FtpTest extends CamelTestSupport {
 
   @Before
   def deleteFile: Unit = {
-    new File("build/ftp/out/out.txt").delete
+    new File("target/ftp/out/out.txt").delete
   }
 
   @After
@@ -45,7 +45,7 @@ class FtpTest extends CamelTestSupport {
     template.sendBody("direct:in", "Hello!")
     Thread.sleep(1000)
 
-    val outFile = new File("build/ftp/out/out.txt")
+    val outFile = new File("target/ftp/out/out.txt")
     assertThat(outFile.exists, is(true))
     assertThat(Source.fromFile(outFile).getLines.mkString, is("<<< Hello! >>>"))
   }
