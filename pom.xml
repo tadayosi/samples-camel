@@ -12,6 +12,7 @@
 
   <modules>
     <module>basic</module>
+    <module>blueprint</module>
     <module>spring</module>
   </modules>
 
@@ -24,6 +25,7 @@
     <version.camel>2.18.2</version.camel>
     <version.cxf>3.1.9</version.cxf>
     <version.spring>4.3.6.RELEASE</version.spring>
+    <version.osgi>5.0.0</version.osgi>
     <version.scala>2.11.8</version.scala>
   </properties>
 
@@ -164,6 +166,32 @@
         <version>${version.spring}</version>
       </dependency>
 
+      <!-- osgi runtime -->
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <version>${version.osgi}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>${version.osgi}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.enterprise</artifactId>
+        <version>${version.osgi}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm-commons</artifactId>
+        <version>5.1</version>
+        <scope>runtime</scope>
+      </dependency>
+
       <!-- test -->
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -256,8 +284,8 @@
       </plugin>
     </plugins>
     <pluginManagement>
-      <!-- package -->
       <plugins>
+        <!-- package -->
         <plugin>
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
