@@ -2,8 +2,7 @@ package com.redhat.samples.camel
 
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
-import org.hamcrest.Matchers._
-import org.junit.Assert._
+import org.assertj.core.api.Assertions._
 import org.junit.Test
 
 class OnExceptionTest extends CamelTestSupport {
@@ -31,13 +30,13 @@ class OnExceptionTest extends CamelTestSupport {
   @Test
   def ok: Unit = {
     val reply = template.requestBody("direct:in", "Test")
-    assertThat(reply.toString, is("Hello, Test!"))
+    assertThat(reply.toString).isEqualTo("Hello, Test!")
   }
 
   @Test
   def error: Unit = {
     val reply = template.requestBody("direct:in", "Error")
-    assertThat(reply.toString, is("ERROR: xxxxx"))
+    assertThat(reply.toString).isEqualTo("ERROR: xxxxx")
   }
 
 }

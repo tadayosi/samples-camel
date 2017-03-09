@@ -3,8 +3,7 @@ package com.redhat.samples.camel
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
 import org.apache.camel.{Exchange, Processor}
-import org.hamcrest.Matchers._
-import org.junit.Assert._
+import org.assertj.core.api.Assertions._
 import org.junit.Test
 import org.slf4j.LoggerFactory
 
@@ -33,7 +32,7 @@ class RedeliveryTest extends CamelTestSupport {
   @Test
   def hello: Unit = {
     val reply = template.requestBody("direct:in", "Test")
-    assertThat(reply.toString, is("Hello, Test!"))
+    assertThat(reply.toString).isEqualTo("Hello, Test!")
   }
 
 }

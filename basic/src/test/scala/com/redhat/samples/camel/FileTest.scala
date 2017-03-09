@@ -5,8 +5,7 @@ import java.io.File
 import com.google.common.io.Files
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
-import org.hamcrest.Matchers._
-import org.junit.Assert._
+import org.assertj.core.api.Assertions._
 import org.junit.{Before, Test}
 
 import scala.io.Source
@@ -33,8 +32,8 @@ class FileTest extends CamelTestSupport {
     Thread.sleep(3000)
 
     val outFile = new File("/tmp/sample/out/hello.txt")
-    assertThat(outFile.exists, is(true))
-    assertThat(Source.fromFile(outFile).getLines.mkString, is("<<< Hello! >>>"))
+    assertThat(outFile.exists).isEqualTo(true)
+    assertThat(Source.fromFile(outFile).getLines.mkString).isEqualTo("<<< Hello! >>>")
   }
 
 }

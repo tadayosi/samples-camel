@@ -6,8 +6,7 @@ import com.redhat.samples.camel.helpers.FTPServer
 import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.test.junit4.CamelTestSupport
-import org.hamcrest.Matchers._
-import org.junit.Assert._
+import org.assertj.core.api.Assertions._
 import org.junit.{After, Before, Test}
 
 import scala.io.Source
@@ -46,8 +45,8 @@ class FtpTest extends CamelTestSupport {
     Thread.sleep(1000)
 
     val outFile = new File("target/ftp/out/out.txt")
-    assertThat(outFile.exists, is(true))
-    assertThat(Source.fromFile(outFile).getLines.mkString, is("<<< Hello! >>>"))
+    assertThat(outFile.exists).isEqualTo(true)
+    assertThat(Source.fromFile(outFile).getLines.mkString).isEqualTo("<<< Hello! >>>")
   }
 
 }
