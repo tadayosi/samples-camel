@@ -18,7 +18,7 @@ class FtpTest extends CamelTestSupport {
       from("direct:in")
         .transform().simple("<<< ${body} >>>")
         .setHeader(Exchange.FILE_NAME, constant("out.txt"))
-        .to("ftp:sample:password@localhost:2121/out")
+        .to("ftp://sample:password@localhost:2121/out")
     }
   }
 

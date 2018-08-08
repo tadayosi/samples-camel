@@ -1,7 +1,6 @@
 package com.redhat.samples.camel;
 
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
@@ -12,7 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 public class InterceptTest extends CamelTestSupport {
 
     @Override
-    protected RoutesBuilder createRouteBuilder() {
+    protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             @Override
             public void configure() {
