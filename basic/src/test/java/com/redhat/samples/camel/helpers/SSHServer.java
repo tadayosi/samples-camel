@@ -51,7 +51,7 @@ public class SSHServer {
     }
 
     public SSHServer stop() throws IOException {
-        sshServer.stop();
+        sshServer.stop(true);
         return this;
     }
 
