@@ -153,6 +153,12 @@
         <scope>import</scope>
       </dependency>
 
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${version.spring}</version>
+      </dependency>
+
       <!-- osgi runtime -->
       <dependency>
         <groupId>org.osgi</groupId>
