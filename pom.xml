@@ -22,6 +22,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
+    <!--
+    <version.camel>2.23.0-SNAPSHOT</version.camel>
+    -->
     <version.camel>2.22.0</version.camel>
     <version.cxf>3.2.4</version.cxf>
     <version.spring>5.0.7.RELEASE</version.spring>
@@ -46,44 +49,36 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-osgi</artifactId>
-      <version>${version.camel}</version>
     </dependency>
 
     <!-- Camel components -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-cxf</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-ftp</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-http</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-quartz</artifactId>
-      <version>${version.camel}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-servlet</artifactId>
-      <version>${version.camel}</version>
     </dependency>
 
     <!-- CXF -->
@@ -131,7 +126,6 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test</artifactId>
-      <version>${version.camel}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -150,20 +144,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Camel BOM -->
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-blueprint</artifactId>
+        <artifactId>camel-bom</artifactId>
         <version>${version.camel}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-spring</artifactId>
-        <version>${version.camel}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>${version.spring}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <!-- osgi runtime -->
@@ -190,20 +177,6 @@
         <artifactId>asm-commons</artifactId>
         <version>5.1</version>
         <scope>runtime</scope>
-      </dependency>
-
-      <!-- test -->
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-test-blueprint</artifactId>
-        <version>${version.camel}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-test-spring</artifactId>
-        <version>${version.camel}</version>
-        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
