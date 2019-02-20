@@ -1,5 +1,7 @@
 package com.redhat.samples.camel;
 
+import static org.junit.Assume.assumeNotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,13 +13,14 @@ import org.apache.camel.component.box.BoxComponent;
 import org.apache.camel.component.box.BoxConfiguration;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class BoxTest extends CamelTestSupport {
 
     @PropertyInject("env:BOX_USERNAME")
-    private String boxUnsername;
+    private String boxUsername;
 
     @PropertyInject("env:BOX_PASSWORD")
     private String boxPassword;
@@ -28,6 +31,11 @@ public class BoxTest extends CamelTestSupport {
     @PropertyInject("env:BOX_CLIENT_SECRET")
     private String boxClientSecret;
 
+    @Before
+    public void checkIfCredentialsSet() {
+        assumeNotNull(boxUsername, boxPassword, boxClientId, boxClientSecret);
+    }
+
     @Override
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
@@ -35,10 +43,10 @@ public class BoxTest extends CamelTestSupport {
             public void configure() throws Exception {
                 setup(getContext().getComponent("box", BoxComponent.class));
 
-                String filename = String.format("%s-%s.txt",
-                    BoxTest.class.getSimpleName(),
-                    new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+                String filename = String.format("%s-%s.txt", BoxTest.class.getSimpleName(),
+                        new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 
+                // @formatter:off
                 from("direct:in")
                     .toF("box:files/upload?inBody=content&parentFolderId=0&fileName=%s",
                         filename)
@@ -52,6 +60,7 @@ public class BoxTest extends CamelTestSupport {
                     .to("box:files/download")
                     .log("Downloaded file content = ${body}")
                     .to("mock:out");
+                // @formatter:on
             }
         };
     }
@@ -59,7 +68,7 @@ public class BoxTest extends CamelTestSupport {
     private void setup(BoxComponent box) {
         BoxConfiguration config = new BoxConfiguration();
         config.setAuthenticationType(BoxConfiguration.STANDARD_AUTHENTICATION);
-        config.setUserName(boxUnsername);
+        config.setUserName(boxUsername);
         config.setUserPassword(boxPassword);
         config.setClientId(boxClientId);
         config.setClientSecret(boxClientSecret);
@@ -67,7 +76,6 @@ public class BoxTest extends CamelTestSupport {
     }
 
     @Test
-    @Ignore("Requires Box credentials in env to run")
     public void hello() throws Exception {
         MockEndpoint out = getMockEndpoint("mock:out");
         out.expectedMessageCount(1);
