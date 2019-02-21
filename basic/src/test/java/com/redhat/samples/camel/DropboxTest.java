@@ -1,31 +1,30 @@
 package com.redhat.samples.camel;
 
-import static org.junit.Assume.assumeNotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.dropbox.DropboxComponent;
-import org.apache.camel.component.dropbox.DropboxConfiguration;
 import org.apache.camel.component.dropbox.util.DropboxConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Before;
+import org.apache.camel.util.ObjectHelper;
 import org.junit.Test;
+
+import static org.junit.Assume.assumeTrue;
 
 public class DropboxTest extends CamelTestSupport {
 
-    @PropertyInject("env:DROPBOX_ACCESS_TOKEN")
+    @PropertyInject("env:DROPBOX_ACCESS_TOKEN:")
     private String dropboxAccessToken;
 
-    @PropertyInject("env:DROPBOX_CLIENT_IDENTIFIER")
+    @PropertyInject("env:DROPBOX_CLIENT_IDENTIFIER:")
     private String dropboxClientIdentifier;
 
-    @Before
-    public void checkIfCredentialsSet() {
-        assumeNotNull(dropboxAccessToken, dropboxClientIdentifier);
+    @Override
+    protected void doPreSetup() throws Exception {
+        assumeTrue(ObjectHelper.isNotEmpty(dropboxAccessToken));
+        assumeTrue(ObjectHelper.isNotEmpty(dropboxClientIdentifier));
     }
 
     @Override

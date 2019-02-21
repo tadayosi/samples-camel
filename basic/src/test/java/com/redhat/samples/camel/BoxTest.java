@@ -1,39 +1,41 @@
 package com.redhat.samples.camel;
 
-import static org.junit.Assume.assumeNotNull;
-
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.box.sdk.BoxFile;
-
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.box.BoxComponent;
 import org.apache.camel.component.box.BoxConfiguration;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Before;
+import org.apache.camel.util.ObjectHelper;
 import org.junit.Test;
+
+import static org.junit.Assume.assumeTrue;
 
 public class BoxTest extends CamelTestSupport {
 
-    @PropertyInject("env:BOX_USERNAME")
+    @PropertyInject("env:BOX_USERNAME:")
     private String boxUsername;
 
-    @PropertyInject("env:BOX_PASSWORD")
+    @PropertyInject("env:BOX_PASSWORD:")
     private String boxPassword;
 
-    @PropertyInject("env:BOX_CLIENT_ID")
+    @PropertyInject("env:BOX_CLIENT_ID:")
     private String boxClientId;
 
-    @PropertyInject("env:BOX_CLIENT_SECRET")
+    @PropertyInject("env:BOX_CLIENT_SECRET:")
     private String boxClientSecret;
 
-    @Before
-    public void checkIfCredentialsSet() {
-        assumeNotNull(boxUsername, boxPassword, boxClientId, boxClientSecret);
+    @Override
+    protected void doPreSetup() throws Exception {
+        assumeTrue(ObjectHelper.isNotEmpty(boxUsername));
+        assumeTrue(ObjectHelper.isNotEmpty(boxPassword));
+        assumeTrue(ObjectHelper.isNotEmpty(boxClientId));
+        assumeTrue(ObjectHelper.isNotEmpty(boxClientSecret));
     }
 
     @Override
