@@ -12,30 +12,32 @@ import org.apache.camel.component.box.BoxConfiguration;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.apache.camel.util.ObjectHelper;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
 public class BoxTest extends CamelTestSupport {
 
-    @PropertyInject("env:BOX_USERNAME:")
+    @PropertyInject("env:BOX_USERNAME")
     private String boxUsername;
 
-    @PropertyInject("env:BOX_PASSWORD:")
+    @PropertyInject("env:BOX_PASSWORD")
     private String boxPassword;
 
-    @PropertyInject("env:BOX_CLIENT_ID:")
+    @PropertyInject("env:BOX_CLIENT_ID")
     private String boxClientId;
 
-    @PropertyInject("env:BOX_CLIENT_SECRET:")
+    @PropertyInject("env:BOX_CLIENT_SECRET")
     private String boxClientSecret;
 
-    @Override
-    protected void doPreSetup() throws Exception {
-        assumeTrue(ObjectHelper.isNotEmpty(boxUsername));
-        assumeTrue(ObjectHelper.isNotEmpty(boxPassword));
-        assumeTrue(ObjectHelper.isNotEmpty(boxClientId));
-        assumeTrue(ObjectHelper.isNotEmpty(boxClientSecret));
+    @BeforeClass
+    public static void testConditions() {
+        assumeNotNull(System.getenv("BOX_USERNAME"));
+        assumeNotNull(System.getenv("BOX_PASSWORD"));
+        assumeNotNull(System.getenv("BOX_CLIENT_ID"));
+        assumeNotNull(System.getenv("BOX_CLIENT_SECRET"));
     }
 
     @Override

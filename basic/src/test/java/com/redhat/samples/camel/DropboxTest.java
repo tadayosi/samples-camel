@@ -9,22 +9,24 @@ import org.apache.camel.component.dropbox.util.DropboxConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.apache.camel.util.ObjectHelper;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
 public class DropboxTest extends CamelTestSupport {
 
-    @PropertyInject("env:DROPBOX_ACCESS_TOKEN:")
+    @PropertyInject("env:DROPBOX_ACCESS_TOKEN")
     private String dropboxAccessToken;
 
-    @PropertyInject("env:DROPBOX_CLIENT_IDENTIFIER:")
+    @PropertyInject("env:DROPBOX_CLIENT_IDENTIFIER")
     private String dropboxClientIdentifier;
 
-    @Override
-    protected void doPreSetup() throws Exception {
-        assumeTrue(ObjectHelper.isNotEmpty(dropboxAccessToken));
-        assumeTrue(ObjectHelper.isNotEmpty(dropboxClientIdentifier));
+    @BeforeClass
+    public static void testConditions() {
+        assumeNotNull(System.getenv("DROPBOX_ACCESS_TOKEN"));
+        assumeNotNull(System.getenv("DROPBOX_CLIENT_IDENTIFIER"));
     }
 
     @Override
