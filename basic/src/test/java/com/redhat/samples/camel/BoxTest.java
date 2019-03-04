@@ -11,12 +11,10 @@ import org.apache.camel.component.box.BoxComponent;
 import org.apache.camel.component.box.BoxConfiguration;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.ObjectHelper;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
 
 public class BoxTest extends CamelTestSupport {
 
