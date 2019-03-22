@@ -24,18 +24,38 @@ public class BoxTest extends CamelTestSupport {
     @PropertyInject("env:BOX_PASSWORD")
     private String boxPassword;
 
+    @PropertyInject("env:BOX_USER_ID")
+    private String boxUserId;
+
+    @PropertyInject("env:BOX_ENTERPRISE_ID")
+    private String boxEnterpriseId;
+
     @PropertyInject("env:BOX_CLIENT_ID")
     private String boxClientId;
 
     @PropertyInject("env:BOX_CLIENT_SECRET")
     private String boxClientSecret;
 
+    @PropertyInject("env:BOX_PUBLIC_KEY_ID")
+    private String boxPublicKeyId;
+
+    @PropertyInject("env:BOX_PRIVATE_KEY_FILE")
+    private String boxPrivateKeyFile;
+
+    @PropertyInject("env:BOX_PRIVATE_KEY_PASSWORD")
+    private String boxPrivateKeyPassword;
+
     @BeforeClass
     public static void testConditions() {
         assumeNotNull(System.getenv("BOX_USERNAME"));
         assumeNotNull(System.getenv("BOX_PASSWORD"));
+        assumeNotNull(System.getenv("BOX_USER_ID"));
+        assumeNotNull(System.getenv("BOX_ENTERPRISE_ID"));
         assumeNotNull(System.getenv("BOX_CLIENT_ID"));
         assumeNotNull(System.getenv("BOX_CLIENT_SECRET"));
+        assumeNotNull(System.getenv("BOX_PUBLIC_KEY_ID"));
+        assumeNotNull(System.getenv("BOX_PRIVATE_KEY_FILE"));
+        assumeNotNull(System.getenv("BOX_PRIVATE_KEY_PASSWORD"));
     }
 
     @Override
@@ -46,7 +66,7 @@ public class BoxTest extends CamelTestSupport {
                 setup(getContext().getComponent("box", BoxComponent.class));
 
                 String filename = String.format("%s-%s.txt", BoxTest.class.getSimpleName(),
-                        new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+                    new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 
                 // @formatter:off
                 from("direct:in")
@@ -70,10 +90,16 @@ public class BoxTest extends CamelTestSupport {
     private void setup(BoxComponent box) {
         BoxConfiguration config = new BoxConfiguration();
         config.setAuthenticationType(BoxConfiguration.STANDARD_AUTHENTICATION);
+        //config.setAuthenticationType(BoxConfiguration.APP_ENTERPRISE_AUTHENTICATION);
         config.setUserName(boxUsername);
         config.setUserPassword(boxPassword);
+        config.setUserId(boxUserId);
+        config.setEnterpriseId(boxEnterpriseId);
         config.setClientId(boxClientId);
         config.setClientSecret(boxClientSecret);
+        config.setPublicKeyId(boxPublicKeyId);
+        config.setPrivateKeyFile(boxPrivateKeyFile);
+        config.setPrivateKeyPassword(boxPrivateKeyPassword);
         box.setConfiguration(config);
     }
 
