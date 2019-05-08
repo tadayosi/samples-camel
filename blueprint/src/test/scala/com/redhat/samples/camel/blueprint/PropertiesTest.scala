@@ -25,7 +25,7 @@ class PropertiesTest extends CamelBlueprintTestSupport {
         })
         .to("direct:in3")
       from("direct:in3")
-        .transform().simple("${camelContext.properties[greeting.goodbye]}, ${body}!")
+        .transform().simple("${camelContext.globalOptions[greeting.goodbye]}, ${body}!")
         .to("mock:out")
     }
   }
