@@ -35,7 +35,7 @@ public class IOConverterTest {
 
     @Test
     public void fileToInputStream() throws IOException {
-        System.out.println(Charset.defaultCharset());
+        System.out.println("Default charset = " + Charset.defaultCharset());
         Files.createDirectories(inputXml.getParent());
         Files.copy(getClass().getResourceAsStream("/converter/" + INPUT_XML), inputXml);
         InputStream in = IOConverter.toInputStream(inputXml.toFile(), "Shift_JIS");

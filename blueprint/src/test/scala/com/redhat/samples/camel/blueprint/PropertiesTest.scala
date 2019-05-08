@@ -18,9 +18,9 @@ class PropertiesTest extends CamelBlueprintTestSupport {
       from("direct:in2")
         .process(new Processor {
           override def process(ex: Exchange): Unit = {
-            val props = ex.getContext.getProperties
-            props.put("greeting.goodbye", "Goodbye")
-            ex.getContext.setProperties(props)
+            val options = ex.getContext.getGlobalOptions
+            options.put("greeting.goodbye", "Goodbye")
+            ex.getContext.setGlobalOptions(options)
           }
         })
         .to("direct:in3")
