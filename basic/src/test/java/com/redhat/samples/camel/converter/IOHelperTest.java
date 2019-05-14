@@ -13,18 +13,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.camel.converter.IOConverter;
+import org.apache.camel.util.IOHelper;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * https://issues.apache.org/jira/browse/CAMEL-12769
  */
-public class IOConverterTest {
+public class IOHelperTest {
 
-    private static final String TEST_DIR = "/tmp/samples-camel/" + IOConverterTest.class.getSimpleName();
+    private static final String TEST_DIR = "/tmp/samples-camel/" + IOHelperTest.class.getSimpleName();
 
-    private static final String INPUT_XML = String.format("%s-input.xml", IOConverterTest.class.getSimpleName());
+    private static final String INPUT_XML = String.format("%s-input.xml", IOHelperTest.class.getSimpleName());
 
     private final Path inputXml = Paths.get(TEST_DIR, INPUT_XML);
 
@@ -38,7 +38,7 @@ public class IOConverterTest {
         System.out.println("Default charset = " + Charset.defaultCharset());
         Files.createDirectories(inputXml.getParent());
         Files.copy(getClass().getResourceAsStream("/converter/" + INPUT_XML), inputXml);
-        InputStream in = IOConverter.toInputStream(inputXml.toFile(), "Shift_JIS");
+        InputStream in = IOHelper.toInputStream(inputXml.toFile(), "Shift_JIS");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
