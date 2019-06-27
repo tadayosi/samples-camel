@@ -22,6 +22,7 @@ public class RestletTest extends CamelTestSupport {
                     .to("http://localhost:8080/hello");
 
                 from("restlet:http://localhost:8080/hello?restletMethod=POST")
+                    .streamCaching()
                     .log("body: ${body}")
                     .log("header: ${headers}")
                     .transform().simple("Hello, ${body}!");

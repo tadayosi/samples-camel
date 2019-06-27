@@ -1,7 +1,7 @@
 package com.redhat.samples.camel
 
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.support.builder.xml.Namespaces
+import org.apache.camel.support.builder.Namespaces
 import org.apache.camel.test.junit4.CamelTestSupport
 import org.junit.Test
 

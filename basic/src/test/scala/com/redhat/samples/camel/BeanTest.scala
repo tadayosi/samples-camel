@@ -1,7 +1,6 @@
 package com.redhat.samples.camel
 
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.impl.JndiRegistry
 import org.apache.camel.test.junit4.CamelTestSupport
 import org.junit.Test
 
@@ -9,8 +8,7 @@ class BeanTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {
-      getContext.getRegistry(classOf[JndiRegistry])
-        .bind("greeting", new GreetingBean)
+      context.getRegistry.bind("greeting", new GreetingBean)
 
       from("direct:in")
         .bean("greeting", "hello")

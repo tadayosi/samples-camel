@@ -2,7 +2,6 @@ package com.redhat.samples.camel
 
 import javax.ws.rs.{GET, Path, PathParam}
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.impl.JndiRegistry
 import org.apache.camel.test.junit4.CamelTestSupport
 import org.apache.cxf.feature.LoggingFeature
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean
@@ -18,9 +17,8 @@ class CxfrsTest extends CamelTestSupport {
 
   override def createRouteBuilder = new RouteBuilder {
     override def configure: Unit = {
-      getContext.setTracing(true)
-      getContext.getRegistry(classOf[JndiRegistry])
-        .bind("rsServer", rsServer)
+      context.setTracing(true)
+      context.getRegistry.bind("rsServer", rsServer)
 
       //from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
       from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer&synchronous=true")
