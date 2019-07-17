@@ -73,6 +73,13 @@ public class HttpStreamingTest extends CamelTestSupport {
                     .log("length = ${body}")
                     .to("mock:check-length")
                     .process(stream::produce);
+
+                from("direct:undertow-receive-only").routeId("undertow-receive-only")
+                    .to("undertow:http://localhost:9005?useStreaming=true")
+                    .process(stream::consume)
+                    .log("length = ${body}");
+                from("jetty:http://localhost:9005?disableStreamCache=true")
+                    .process(stream::produce);
                 // @formatter:on
             }
         };
@@ -107,6 +114,13 @@ public class HttpStreamingTest extends CamelTestSupport {
     @Test
     public void undertowToJetty() throws Exception {
         doTest("direct:undertow-to-jetty");
+    }
+
+    @Test
+    public void undertowReceiveOnly() throws Exception {
+        long length = template.requestBody("direct:undertow-receive-only",
+            "test", Long.class);
+        assertEquals(stream.length(), length);
     }
 
 }
