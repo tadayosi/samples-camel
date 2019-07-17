@@ -9,7 +9,7 @@ indent_size = 4
 [*.scala]
 indent_size = 2
 
-[*.xml]
+[*.{xml,yml}]
 indent_size = 2
 
 [*.md]
