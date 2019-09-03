@@ -54,11 +54,11 @@ public class StreamHelper {
                         writer.write(line);
                         writer.newLine();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 });
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }).start();
     }

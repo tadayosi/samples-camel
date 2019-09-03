@@ -20,32 +20,32 @@ public class HttpStreamingTest extends CamelTestSupport {
             @Override
             public void configure() {
                 // @formatter:off
-                from("direct:http4-to-jetty").routeId("http4-to-jetty")
+                from("direct:http-to-jetty").routeId("http-to-jetty")
                     .process(stream::produce)
-                    .to("http4://localhost:9001?disableStreamCache=true")
+                    .to("http://localhost:9001?disableStreamCache=true")
                     .process(stream::consume)
                     .log("length = ${body}");
-                from("jetty:http://localhost:9001?disableStreamCache=true").routeId("jetty-to-http4")
+                from("jetty:http://localhost:9001?disableStreamCache=true").routeId("jetty-to-http")
                     .process(stream::consume)
                     .log("length = ${body}")
                     .to("mock:check-length")
                     .process(stream::produce);
 
-                from("direct:http4-to-undertow").routeId("http4-to-undertow")
+                from("direct:http-to-undertow").routeId("http-to-undertow")
                     .process(stream::produce)
-                    .to("http4://localhost:9002?disableStreamCache=true")
+                    .to("http://localhost:9002?disableStreamCache=true")
                     .process(stream::consume)
                     .log("length = ${body}");
-                from("undertow:http://localhost:9002?useStreaming=true").routeId("undertow-to-http4")
+                from("undertow:http://localhost:9002?useStreaming=true").routeId("undertow-to-http")
                     .process(stream::consume)
                     .log("length = ${body}")
                     .to("mock:check-length")
                     .process(stream::produce);
 
-                from("direct:http4-to-rest-undertow").routeId("http4-to-rest-undertow")
+                from("direct:http-to-rest-undertow").routeId("http-to-rest-undertow")
                     .process(stream::produce)
                     .setHeader(Exchange.HTTP_METHOD, constant("POST"))
-                    .to("http4://localhost:9003/rest/undertow/post?disableStreamCache=true")
+                    .to("http://localhost:9003/rest/undertow/post?disableStreamCache=true")
                     .process(stream::consume)
                     .log("length = ${body}");
                 restConfiguration()
@@ -56,8 +56,8 @@ public class HttpStreamingTest extends CamelTestSupport {
                     .endpointProperty("useStreaming", "true");
                 rest("/undertow")
                     .post("/post").produces("text/plain")
-                    .to("direct:rest-undertow-to-http4");
-                from("direct:rest-undertow-to-http4").routeId("rest-undertow-to-http4")
+                    .to("direct:rest-undertow-to-http");
+                from("direct:rest-undertow-to-http").routeId("rest-undertow-to-http")
                     .process(stream::consume)
                     .log("length = ${body}")
                     .to("mock:check-length")
@@ -97,18 +97,18 @@ public class HttpStreamingTest extends CamelTestSupport {
     }
 
     @Test
-    public void http4ToJetty() throws Exception {
-        doTest("direct:http4-to-jetty");
+    public void httpToJetty() throws Exception {
+        doTest("direct:http-to-jetty");
     }
 
     @Test
-    public void http4ToUndertow() throws Exception {
-        doTest("direct:http4-to-undertow");
+    public void httpToUndertow() throws Exception {
+        doTest("direct:http-to-undertow");
     }
 
     @Test
-    public void http4ToRestUndertow() throws Exception {
-        doTest("direct:http4-to-rest-undertow");
+    public void httpToRestUndertow() throws Exception {
+        doTest("direct:http-to-rest-undertow");
     }
 
     @Test
