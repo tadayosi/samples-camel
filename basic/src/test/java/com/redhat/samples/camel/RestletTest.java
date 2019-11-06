@@ -4,10 +4,12 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.http.common.HttpMethods;
 import org.apache.camel.test.junit4.CamelTestSupport;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
+@Ignore("camel-restlet is removed in Camel 3")
 public class RestletTest extends CamelTestSupport {
 
     @Override

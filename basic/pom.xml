@@ -13,17 +13,46 @@
   <artifactId>samples-camel-basic</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <version.artemis>2.10.1</version.artemis>
+    <version.ftpserver>1.1.1</version.ftpserver>
+    <version.sshd>2.0.0</version.sshd>
+  </properties>
+
   <dependencies>
+    <!-- AMQP & JMS -->
     <dependency>
-      <groupId>org.apache.ftpserver</groupId>
-      <artifactId>ftpserver-core</artifactId>
-      <version>1.1.1</version>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>artemis-server</artifactId>
+      <version>${version.artemis}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>artemis-jms-server</artifactId>
+      <version>${version.artemis}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>artemis-amqp-protocol</artifactId>
+      <version>${version.artemis}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- FTP -->
+    <dependency>
+      <groupId>org.apache.ftpserver</groupId>
+      <artifactId>ftpserver-core</artifactId>
+      <version>${version.ftpserver}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- SFTP -->
+    <dependency>
       <groupId>org.apache.sshd</groupId>
       <artifactId>sshd-sftp</artifactId>
-      <version>2.0.0</version>
+      <version>${version.sshd}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
