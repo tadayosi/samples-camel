@@ -1,6 +1,7 @@
 package com.redhat.samples.camel;
 
 import com.redhat.samples.camel.helpers.EmbeddedBroker;
+import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPComponent;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -9,8 +10,12 @@ import org.apache.qpid.jms.JmsConnectionFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AmqpTest extends CamelTestSupport {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AmqpTest.class);
 
     private static final int BROKER_PORT = 5672;
 
@@ -22,7 +27,15 @@ public class AmqpTest extends CamelTestSupport {
                 setup(getContext().getComponent("amqp", AMQPComponent.class));
 
                 from("amqp:queue:hello")
-                    .log("body = ${body}")
+                    .process(e -> {
+                        Message message = e.getMessage();
+                        LOG.info("========================================");
+                        LOG.info("[Headers]");
+                        message.getHeaders().forEach((k, v) ->
+                            LOG.info("{} = {}", k, v));
+                        LOG.info("========================================");
+                        LOG.info("body = {}", message.getBody());
+                    })
                     .to("mock:out");
             }
         };
