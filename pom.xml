@@ -23,15 +23,15 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <version.camel>3.0.0-RC3</version.camel>
+    <version.camel>3.7.1</version.camel>
     <!--
     <version.camel>3.0.0-SNAPSHOT</version.camel>
     -->
     <version.cxf>3.3.1</version.cxf>
-    <version.spring>5.1.9.RELEASE</version.spring>
-    <version.spring-boot>2.1.8.RELEASE</version.spring-boot>
+    <version.spring>5.3.3</version.spring>
+    <version.spring-boot>2.2.4.RELEASE</version.spring-boot>
     <version.osgi>5.0.0</version.osgi>
-    <version.scala>2.11.8</version.scala>
+    <version.scala>2.11.12</version.scala>
   </properties>
 
   <dependencies>
@@ -51,10 +51,6 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-core-osgi</artifactId>
     </dependency>
 
     <!-- Camel components -->
@@ -228,7 +224,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.8.1</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -276,7 +272,7 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>3.2.2</version>
+        <version>4.4.0</version>
         <executions>
           <execution>
             <goals>

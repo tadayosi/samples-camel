@@ -12,9 +12,25 @@
   <artifactId>samples-camel-blueprint</artifactId>
   <packaging>bundle</packaging>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.camel.karaf</groupId>
+        <artifactId>camel-karaf-bom</artifactId>
+        <version>${version.camel}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
-      <groupId>org.apache.camel</groupId>
+      <groupId>org.apache.camel.karaf</groupId>
+      <artifactId>camel-core-osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.karaf</groupId>
       <artifactId>camel-blueprint</artifactId>
       <scope>provided</scope>
     </dependency>
@@ -43,7 +59,7 @@
 
     <!-- test -->
     <dependency>
-      <groupId>org.apache.camel</groupId>
+      <groupId>org.apache.camel.karaf</groupId>
       <artifactId>camel-test-blueprint</artifactId>
       <scope>test</scope>
     </dependency>
