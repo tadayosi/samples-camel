@@ -1,12 +1,26 @@
 package com.redhat.samples.camel;
 
+import java.util.function.Consumer;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+
+import com.google.common.collect.ImmutableMap;
 import com.redhat.samples.camel.helpers.EmbeddedBroker;
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPComponent;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit4.CamelTestSupport;
+import org.apache.camel.util.CastUtils;
 import org.apache.qpid.jms.JmsConnectionFactory;
+import org.apache.qpid.jms.message.JmsMessage;
+import org.apache.qpid.jms.provider.amqp.message.AmqpJmsMessageFacade;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,17 +38,18 @@ public class AmqpTest extends CamelTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() {
-                setup(getContext().getComponent("amqp", AMQPComponent.class));
+                setup(context.getComponent("amqp", AMQPComponent.class));
 
                 from("amqp:queue:hello")
                     .process(e -> {
                         Message message = e.getMessage();
                         LOG.info("========================================");
+                        LOG.info("[Body] {}", message.getBody());
+                        LOG.info("----------------------------------------");
                         LOG.info("[Headers]");
                         message.getHeaders().forEach((k, v) ->
-                            LOG.info("{} = {}", k, v));
+                            LOG.info("  {} = {}", k, v));
                         LOG.info("========================================");
-                        LOG.info("body = {}", message.getBody());
                     })
                     .to("mock:out");
             }
@@ -67,9 +82,31 @@ public class AmqpTest extends CamelTestSupport {
         MockEndpoint out = getMockEndpoint("mock:out");
         out.expectedMessageCount(1);
         out.expectedBodiesReceived("Hello!");
+        out.message(0).header("aaa").isEqualTo("xxx");
+        //out.message(0).header("JMS_AMQP_MA_bbb").isEqualTo("yyy");
 
-        template.sendBody("amqp:queue:hello", "Hello!");
+        send("hello", "Hello!", facade -> {
+            try {
+                facade.setApplicationProperty("aaa", "xxx");
+                facade.setTracingAnnotation("bbb", "yyy");
+            } catch (JMSException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         out.assertIsSatisfied();
+    }
+
+    private void send(String queue, String body, Consumer<AmqpJmsMessageFacade> consumer) throws JMSException {
+        ConnectionFactory connectionFactory = context.getComponent("amqp", AMQPComponent.class)
+            .getConnectionFactory();
+        try (Connection connection = connectionFactory.createConnection();
+             Session session = connection.createSession();
+             MessageProducer producer = session.createProducer(session.createQueue(queue))) {
+            TextMessage message = session.createTextMessage(body);
+            consumer.accept((AmqpJmsMessageFacade) ((JmsMessage) message).getFacade());
+            producer.send(message);
+        }
     }
 
 }
